@@ -24,15 +24,18 @@ func main() {
 
 	// CORS
 	r.Use(cors.New(cors.Config{
-		AllowOriginFunc: func(origin string) bool {
-			return true // Allow all origins in development
-		},
+		AllowOrigins:     []string{config.AppConfig.CORSAllowedOrigins},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization", "Accept", "X-Requested-With"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
 		MaxAge:           12 * 3600,
 	}))
+
+	// Fallback for dev if needed
+	if config.AppConfig.CORSAllowedOrigins == "" || config.AppConfig.CORSAllowedOrigins == "*" {
+		r.Use(cors.Default())
+	}
 
 	// ---- Auth routes (public) ----
 	auth := r.Group("/auth")

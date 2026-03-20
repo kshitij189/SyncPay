@@ -10,6 +10,11 @@ import InvitePage from './InvitePage';
 
 const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID || '';
 
+// Production API URL handling
+if (process.env.NODE_ENV === 'production') {
+  axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'https://syncpay-backend.onrender.com';
+}
+
 // Setup axios interceptor for token refresh
 const setupAxiosInterceptors = (onLogout) => {
   axios.interceptors.response.use(

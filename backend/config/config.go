@@ -18,6 +18,7 @@ type Config struct {
 	CORSAllowedOrigins string
 	GeminiAPIKey       string
 	GoogleClientID     string
+	DatabaseURL        string
 	Port               string
 	AccessTokenTTL     time.Duration
 	RefreshTokenTTL    time.Duration
@@ -39,6 +40,7 @@ func Load() {
 		CORSAllowedOrigins: getEnv("CORS_ALLOWED_ORIGINS", "http://localhost:3000"),
 		GeminiAPIKey:       getEnv("GEMINI_API_KEY", ""),
 		GoogleClientID:     getEnv("GOOGLE_CLIENT_ID", ""),
+		DatabaseURL:        getEnv("DATABASE_URL", ""),
 		Port:               getEnv("PORT", "8000"),
 		AccessTokenTTL:     30 * time.Minute,
 		RefreshTokenTTL:    7 * 24 * time.Hour,
